@@ -1,0 +1,120 @@
+body {
+    background-color: #aaaaaa;
+    color: #aaaaaa;
+    font-size: 19px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding: 15px;
+}
+
+main {
+    max-width: 1000px;
+    margin: 25px auto;
+    border: #5d5d5d solid 4px;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: #1a472a;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+h1,
+h2,
+h3 {
+    color: #aaaaaa;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h1,
+h2 {
+    margin: 0 0 10px 0;
+}
+
+h2 {
+    font-size: 1.35em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+/* Product Form Display */
+form {
+    
+    border-right: #aaaaaa solid 4px;
+    padding-right: 8px;
+}
+
+.grid-fields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+input {
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.formButton {
+    width: 100%;
+    margin: 10px 0 0 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.formButton.active {
+    background-color: #000;
+    color: #fff;
+}
+
+.formButton.active:hover {
+    background-color: #333333;
+}
+
+.formButton.inactive {
+    background-color: #333333;
+    color: #d3d3d3;
+}
+
+#errors {
+    color: #e20000;
+}
+
+/* Receipt Display */
+.receipt {
+    padding: 0 0 0 8px;
+}
+
+.receipt h3{
+    margin-top: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    text-align: left;
+    padding: 3px 15px 3px 3px;
+    text-transform: capitalize;
+}
+
+.item-row, .subtotal-row {
+    border-top: #aaaaaa solid 2px;
+    padding-top: 8px;
+}
+
+.price-row {
+    padding-bottom: 8px;
+}
+
+td {
+    text-align: right;
+}

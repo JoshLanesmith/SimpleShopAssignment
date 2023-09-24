@@ -1,0 +1,159 @@
+<!--
+    Assignemnt 3
+    This program displays products for an online store and displays a receipt when the custerm checksout
+
+    Name: Josh Lanesmith
+    Student ID: 8885373
+    Created: 2023-07-21
+-->
+
+<%- include('layouts/header'); -%>
+<% if (typeof fieldValues !== 'undefined') {
+    var name = fieldValues.name ?? ''
+    var address = fieldValues.address ?? ''
+    var city = fieldValues.city ?? ''
+    var province = fieldValues.province ?? ''
+    var phone = fieldValues.phone ?? ''
+    var email = fieldValues.email ?? '' 
+
+    var prodFieldValues = {}
+
+    if(typeof(products) !== 'undefined'){
+        for(var product of products){
+            prodFieldValues[product.id] = fieldValues[product.id] ?? ''
+        }
+    }
+} else {
+    var name = ''
+    var address = ''
+    var city = ''
+    var province = ''
+    var phone = ''
+    var email = '' 
+
+    var prodFieldValues = {}
+
+    if(typeof(products) !== 'undefined'){
+        for(var product of products){
+            prodFieldValues[product.id] = ''
+        }
+    }
+} %>
+
+<body>
+    <main>
+        <h1>Borgin and Burkes</h1>
+        <h2>13B, Knockturn Alley, Diagon Alley</h2>
+        <div class="container">
+            <form name="storeForm" method="post" action="" id="orderForm">
+                <div class="grid-fields">
+                    <label for="name">Name:*</label>
+                    <input type="text" name="name" id="nameField" placeholder="First Last" value="<%= name %>">
+                </div>
+                <div class="grid-fields">
+                    <label for="address">Address:*</label>
+                    <input type="text" name="address" id="addressField" value="<%= address %>">
+                </div>
+                <div class="grid-fields">
+                    <label for="city">City:*</label>
+                    <input type="text" name="city" id="cityField" value="<%= city %>">
+                </div>
+                <div class="grid-fields">
+                    <label for="province">Province:*</label>
+                    <input type="text" name="province" id="provinceField" value="<%= province %>">
+                </div>
+                <div class="grid-fields">
+                    <label for="phone">Phone:</label>
+                    <input type="text" name="phone" id="phoneField" placeholder="123-123-1234" value="<%= phone %>">
+                </div>
+                <div class="grid-fields">
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="emailField" placeholder="email@domain.com" value="<%= email %>">
+                </div>
+                <h3>Store Products</h3>
+                <% if(typeof(products) != 'undefined'){ %>
+                    <div id="products">
+                        <% for(var product of products){ %>
+                            <div class="grid-fields">
+                                <label for="<%= product.id %>"><%= product.name %> - <%= product.price %> Galleons</label>
+                                <input type="text" name="<%= product.id %>" value="<%= prodFieldValues[product.id] %>">
+                            </div>
+                        <% } %>
+                    </div>
+                    <input type="submit" value="Checkout" name="checkout" class="formButton active">
+                <% } else { %>
+                    <div id="products">
+                        <p>No products currently available - please check back later</p>
+                    </div>
+                    <input type="submit" value="Checkout" name="checkout" class="formButton inactive" disabled>
+                <% } %>
+                <% if(typeof(errors) != 'undefined'){ %>
+                    <p id="errors">
+                        <% for(var error of errors){ %>
+                        
+                            <%= error.msg %></br>
+                        
+                        <% } %>
+                    </p>
+                <% } %>
+            </form>
+            <section class="receipt">
+                <h3>Your Receipt</h3>
+                <% if(typeof(message) != 'undefined'){ %>
+                    <p><%= message %></p>
+                <% } %>
+                <table>
+                <% if(typeof(receiptCustomerData) != 'undefined'){ %>
+                    
+                    <% for(var key in receiptCustomerData){ %>
+                        <tr>
+                            <th><%= key %>:</th>
+                            <td><%= receiptCustomerData[key] %></td>
+                        </tr>
+                    <% } %>
+                    
+                <% } %>
+                <% if(typeof(receiptProductData) != 'undefined'){ %>
+                    
+                    <% for(var product of receiptProductData){ %>
+                        <tr>
+                            <th class="item-row">item:</th>
+                            <td class="item-row"><%= product.item %></td>
+                        </tr>
+                        <tr>
+                            <th>unit price:</th>
+                            <td><%= product.unitPrice %> Galleons</td>
+                        </tr>
+                        <tr>
+                            <th>qty:</th>
+                            <td><%= product.qty %></td>
+                        </tr>
+                        <tr>
+                            <th class="price-row">price:</th>
+                            <td class="price-row"><%= product.price %> Galleons</td>
+                        </tr>
+                    <% } %>
+                    
+                <% } %>
+                <% if(typeof(receiptTotals) != 'undefined'){ %>
+                    
+                    <tr>
+                        <th class="subtotal-row">subtotal:</th>
+                        <td class="subtotal-row"><%= receiptTotals.subtotal %> Galleons</td>
+                    </tr>
+                    <tr>
+                        <th>tax:</th>
+                        <td><%= receiptTotals.tax %> Galleons</td>
+                    </tr>
+                    <tr>
+                        <th>total:</th>
+                        <td><%= receiptTotals.total %> Galleons</td>
+                    </tr>
+                    
+                <% } %>
+            </table>
+            </section>
+        </div>
+    </main>
+</body>
+<%- include('layouts/footer'); -%>
